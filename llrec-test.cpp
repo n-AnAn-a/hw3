@@ -67,9 +67,16 @@ void dealloc(Node* head)
 //   function object struct declarations
 // -----------------------------------------------
 
-
-
-
+struct removeOdds {
+  bool operator() (int x) {
+    if (x % 2 != 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+};
 
 int main(int argc, char* argv[])
 {
@@ -86,10 +93,31 @@ int main(int argc, char* argv[])
     print(head);
 
     // Test out your linked list code
+    Node* smaller;
+    Node* larger;
+    int choice;
+    removeOdds x;
 
+    cout << "0 = pivot; 1 = filter" << endl;
+    cin >> choice;
+    if (choice == 0) {
+      int pivot;
+      cout << "Choose a pivot" << endl;
+      cin >> pivot;
+      llpivot(head, smaller, larger, pivot);
+      cout << "List with values <= " << pivot << ": ";
+      print(smaller);
+      cout << "List with values > " << pivot << ": ";
+      print(larger);
+      cout << "Head : ";
+      print(head);
+    }
+    else if (choice == 1) {
+      head = llfilter(head, x);
+      cout << "Filtered list: ";
+      print(head);
+    }
 
-
-    
     return 0;
 
 }
